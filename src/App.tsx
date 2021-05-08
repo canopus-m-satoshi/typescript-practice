@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./styles.css";
 import { Todo } from "./Todo";
 
-type TodoTyoe = {
+type TodoType = {
   userId: number;
   id: number;
   title: string;
@@ -11,11 +11,11 @@ type TodoTyoe = {
 };
 
 export default function App() {
-  const [todos, setTodos] = useState<Array<TodoTyoe>>([]);
+  const [todos, setTodos] = useState<Array<TodoType>>([]);
 
   const onClickFetchData = () => {
     axios
-      .get<Array<TodoTyoe>>("https://jsonplaceholder.typicode.com/todos")
+      .get<Array<TodoType>>("https://jsonplaceholder.typicode.com/todos")
       .then((res) => {
         setTodos(res.data);
       });
@@ -26,7 +26,11 @@ export default function App() {
       <button onClick={onClickFetchData}>データ取得</button>
 
       {todos.map((todo) => (
-        <Todo title={todo.title} userid={todo.userId} />
+        <Todo
+          title={todo.title}
+          userId={todo.userId}
+          completed={todo.completed}
+        />
       ))}
     </div>
   );
